@@ -1,4 +1,4 @@
 @import "utils/vendor/normalize.css";
 @import "utils/vendor/global.css";
 @import "utils/vendor/fonts.css";
-@import "./components/App/App.css";
+@import "components/App/App.css";
