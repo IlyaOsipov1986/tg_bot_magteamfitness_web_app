@@ -1,17 +1,33 @@
 import { Button, Checkbox, Form, Input } from 'antd';
-import {Link} from "react-router-dom";
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth"
+import {Link, useNavigate} from "react-router-dom";
+import {useDispatch} from "react-redux";
+import {setUser} from "../store/slices/userSlice.js";
 
 const LoginPage = () => {
+    const dispatch = useDispatch();
+    const redirectMainPage = useNavigate();
 
-    const onFinish = (values) => {
-        console.log('Success:', values);
+    const handleLogin = (values) => {
+        const auth = getAuth();
+        signInWithEmailAndPassword(auth, values.email, values.password)
+            .then(({user}) => {
+                dispatch(setUser({
+                    email: user.email,
+                    id: user.uid,
+                    token: user.accessToken,
+                }))
+                redirectMainPage('/');
+            })
+            .catch((err) => console.log(err));
     };
+
     const onFinishFailed = (errorInfo) => {
-        console.log('Failed:', errorInfo);
+
     };
 
     return (
-        <div>
+        <div className="login-page">
             <Form
                 name="basic"
                 labelCol={{
@@ -26,17 +42,17 @@ const LoginPage = () => {
                 initialValues={{
                     remember: true,
                 }}
-                onFinish={onFinish}
+                onFinish={handleLogin}
                 onFinishFailed={onFinishFailed}
                 autoComplete="off"
             >
                 <Form.Item
-                    label="Username"
-                    name="username"
+                    label="Email"
+                    name="email"
                     rules={[
                         {
                             required: true,
-                            message: 'Please input your username!',
+                            message: 'Введите email',
                         },
                     ]}
                 >
@@ -49,7 +65,7 @@ const LoginPage = () => {
                     rules={[
                         {
                             required: true,
-                            message: 'Please input your password!',
+                            message: 'Введите пароль',
                         },
                     ]}
                 >
@@ -64,7 +80,7 @@ const LoginPage = () => {
                         span: 16,
                     }}
                 >
-                    <Checkbox>Remember me</Checkbox>
+                    <Checkbox>Запомнить меня</Checkbox>
                 </Form.Item>
 
                 <Form.Item
