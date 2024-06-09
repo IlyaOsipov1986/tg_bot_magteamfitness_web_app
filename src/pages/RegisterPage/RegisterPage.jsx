@@ -3,7 +3,7 @@ import { getAuth, createUserWithEmailAndPassword } from "firebase/auth"
 import { Button, Form, Input, Space } from 'antd';
 import {Link, useNavigate} from "react-router-dom";
 import {useDispatch} from "react-redux";
-import {setUser} from "../store/slices/userSlice.js";
+import {setUser} from "../../store/slices/userSlice.js";
 
 const SubmitButton = ({ form, children }) => {
     const [submittable, setSubmittable] = useState(false);
@@ -33,8 +33,9 @@ const RegisterPage = () => {
 
     const handleRegister = (values) => {
         const auth = getAuth();
-        createUserWithEmailAndPassword(auth, values.email, values.password, values.displayName)
+        createUserWithEmailAndPassword(auth, values.email, values.password, values.phoneNumber)
             .then(({user}) => {
+                console.log(user)
                 dispatch(setUser({
                     email: user.email,
                     id: user.uid,
@@ -49,8 +50,8 @@ const RegisterPage = () => {
         <div>
             <Form form={form} name="validateOnly" layout="vertical" autoComplete="off" onFinish={handleRegister}>
                 <Form.Item
-                    name="displayName"
-                    label="Фамилия"
+                    name="phoneNumber"
+                    label="Телефон"
                     rules={[
                         {
                             required: true,

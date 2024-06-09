@@ -1,7 +1,7 @@
 import { Navigate } from 'react-router-dom';
 import {useDispatch} from "react-redux";
-import {useAuth} from "../hooks/useAuth.js";
-import {removeUser} from "../store/slices/userSlice.js";
+import {useAuth} from "../../hooks/useAuth.js";
+import {removeUser} from "../../store/slices/userSlice.js";
 
 const HomePage = () => {
     const dispatch = useDispatch();

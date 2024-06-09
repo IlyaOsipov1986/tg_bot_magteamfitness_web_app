@@ -1,0 +1,64 @@
+/*------Базовые стили------------------------------------------------------------------------------------------------*/
+*,
+*::before,
+*::after {
+    padding: 0;
+    margin: 0;
+    border: 0;
+    box-sizing: border-box;
+}
+a {
+    text-decoration: none;
+}
+
+img {
+    vertical-align: top;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-weight: inherit;
+    font-size: inherit;
+}
+html,
+body {
+    height: 100%;
+    line-height: 1;
+    font-size: 18px;
+    background-color: #FFFFFF;
+    font-family: Roboto, 'Arial';
+    /*overflow-y: scroll;*/
+}
+button {
+    font-family: Roboto, 'Arial';
+}
+.app {
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
+    -webkit-text-size-adjust: 100%;
+    -ms-text-size-adjust: 100%;
+    -moz-text-size-adjust: 100%;
+    text-rendering: optimizeLegibility;
+    color: #000000;
+    min-width: 300px;
+    background-color: #FFFFFF;
+    min-height: 100%;
+}
+@layer components {
+    .login-page-wrap {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        display: flex;
+        flex-direction: column;
+        background: #FFFFFF;
+        width: 400px;
+        box-shadow: 0 1px 1px rgba(0, 0, 0, 0.14), 0 2px 1px rgba(0, 0, 0, 0.12), 0 1px 3px rgba(0, 0, 0, 0.2);
+        border-radius: 0.5em;
+        padding: 30px 30px;
+    }
+}

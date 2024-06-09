@@ -1,8 +1,7 @@
-import '../App/App.css'
 import {Routes, Route} from "react-router-dom";
-import HomePage from "../../pages/HomePage.jsx";
-import LoginPage from "../../pages/LoginPage.jsx";
-import RegisterPage from "../../pages/RegisterPage.jsx";
+import HomePage from "../../pages/HomePage/HomePage.jsx";
+import LoginPage from "../../pages/LoginPage/LoginPage.jsx";
+import RegisterPage from "../../pages/RegisterPage/RegisterPage.jsx";
 
 function App() {
 
