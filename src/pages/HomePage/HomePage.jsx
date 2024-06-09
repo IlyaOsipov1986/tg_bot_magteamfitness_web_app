@@ -7,8 +7,6 @@ const HomePage = () => {
     const dispatch = useDispatch();
     const { isAuth, email } = useAuth();
 
-    console.log(isAuth)
-
     return isAuth ? (
         <div>
             <h1>Добро пожаловать</h1>

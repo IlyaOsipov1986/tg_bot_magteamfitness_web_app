@@ -47,64 +47,68 @@ const RegisterPage = () => {
     }
 
     return (
-        <div>
-            <Form form={form} name="validateOnly" layout="vertical" autoComplete="off" onFinish={handleRegister}>
-                <Form.Item
-                    name="phoneNumber"
-                    label="Телефон"
-                    rules={[
-                        {
-                            required: true,
-                        },
-                    ]}
-                >
-                    <Input />
-                </Form.Item>
+        <div className="absolute w-full h-full bg-primary-gold">
+            <div className="login-page-wrap">
+                <Form form={form} name="validateOnly" layout="vertical" autoComplete="off" onFinish={handleRegister}>
+                    <Form.Item
+                        name="phoneNumber"
+                        label="Телефон"
+                        rules={[
+                            {
+                                required: true,
+                            },
+                        ]}
+                    >
+                        <Input/>
+                    </Form.Item>
 
-                <Form.Item
-                    name="secondName"
-                    label="Имя"
-                    rules={[
-                        {
-                            required: true,
-                        },
-                    ]}
-                >
-                    <Input />
-                </Form.Item>
+                    <Form.Item
+                        name="secondName"
+                        label="Имя"
+                        rules={[
+                            {
+                                required: true,
+                            },
+                        ]}
+                    >
+                        <Input/>
+                    </Form.Item>
 
-                <Form.Item
-                    name="email"
-                    label="Email"
-                    rules={[
-                        {
-                            required: true,
-                        },
-                    ]}
-                >
-                    <Input />
-                </Form.Item>
+                    <Form.Item
+                        name="email"
+                        label="Email"
+                        rules={[
+                            {
+                                required: true,
+                            },
+                        ]}
+                    >
+                        <Input/>
+                    </Form.Item>
 
-                <Form.Item
-                    name="password"
-                    label="Пароль"
-                    rules={[
-                        {
-                            required: true,
-                        },
-                    ]}
-                >
-                    <Input />
-                </Form.Item>
+                    <Form.Item
+                        name="password"
+                        label="Пароль"
+                        rules={[
+                            {
+                                required: true,
+                            },
+                        ]}
+                    >
+                        <Input/>
+                    </Form.Item>
 
-                <Form.Item>
-                    <Space>
-                        <SubmitButton form={form}>Зарегистрироваться</SubmitButton>
-                        <Button htmlType="reset">Очистить данные</Button>
-                    </Space>
-                </Form.Item>
-            </Form>
-            <Link to="/login">На страницу авторизации</Link>
+                    <Form.Item>
+                        <Space>
+                            <SubmitButton form={form}>Зарегистрироваться</SubmitButton>
+                            <Button htmlType="reset">Очистить данные</Button>
+                        </Space>
+                    </Form.Item>
+                </Form>
+                <div className="text-sm">
+                    <Link to="/login" style={{color: '#1677ff'}}>На страницу авторизации</Link>
+                </div>
+            </div>
         </div>
     )
 }
