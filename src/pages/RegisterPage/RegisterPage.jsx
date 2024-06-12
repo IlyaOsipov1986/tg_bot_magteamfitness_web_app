@@ -39,7 +39,8 @@ const RegisterPage = () => {
                 dispatch(setUser({
                     email: user.email,
                     id: user.uid,
-                    token: user.accessToken,
+                    accessToken: user.accessToken,
+                    refreshToken: user.stsTokenManager.refreshToken
                 }))
                 redirectMainPage('/');
             })
@@ -48,7 +49,7 @@ const RegisterPage = () => {
 
     return (
         <div className="absolute w-full h-full bg-primary-gold">
-            <div className="login-page-wrap">
+            <div className="login-register-page-wrap">
                 <Form form={form} name="validateOnly" layout="vertical" autoComplete="off" onFinish={handleRegister}>
                     <Form.Item
                         name="phoneNumber"
