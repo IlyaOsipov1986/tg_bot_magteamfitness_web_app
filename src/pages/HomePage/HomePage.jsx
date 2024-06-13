@@ -1,9 +1,8 @@
-import { Navigate } from 'react-router-dom';
+import {Navigate, useNavigate} from 'react-router-dom';
 import {useDispatch} from "react-redux";
 import {useAuth} from "../../utils/hooks/useAuth.jsx";
 import {removeUser} from "../../store/slices/userSlice.js";
 import { Layout, Flex } from 'antd';
-import useLocalstorage from "../../utils/hooks/useLocalstorage.jsx";
 const { Header, Footer, Sider, Content } = Layout;
 
 const layoutStyle = {
@@ -48,20 +47,22 @@ const footerStyle = {
 
 const HomePage = () => {
     const dispatch = useDispatch();
-    const { email,
-        accessToken,
-        refreshToken,
-        id } = useAuth();
+    const { isAuth } = useAuth();
+    const redirectLoginPage = useNavigate();
 
-    const [auth, setAuth] = useLocalstorage({}, 'user');
+    function logOut() {
+        if (localStorage.getItem('user')) {
+            localStorage.removeItem('user');
+            dispatch(removeUser());
+            redirectLoginPage('/login', {replace: true });
+        }
+    }
 
-    console.log(auth)
-
-    return email ? (
+    return isAuth.email ? (
         <Flex gap="middle" wrap className="h-screen">
             <Layout style={layoutStyle}>
                 <Header style={headerStyle}>Header
-                    <button onClick={() => dispatch(removeUser())}>Выход</button>
+                    <button onClick={logOut}>Выход</button>
                 </Header>
                 <Layout>
                     <Sider width="150px" style={siderStyle}>
