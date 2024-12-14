@@ -1,5 +1,4 @@
 import { Button, Checkbox, Form, Input } from 'antd';
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth"
 import {Link, useNavigate} from "react-router-dom";
 import {useDispatch} from "react-redux";
 import {setUser} from "../../store/slices/userSlice.js";
@@ -9,19 +8,23 @@ const LoginPage = () => {
     const redirectMainPage = useNavigate();
 
     const handleLogin = (values) => {
-        const auth = getAuth();
-        signInWithEmailAndPassword(auth, values.email, values.password)
-            .then(({user}) => {
-                dispatch(setUser({
-                    email: user.email,
-                    id: user.uid,
-                    accessToken: user.accessToken,
-                    refreshToken: user.stsTokenManager.refreshToken
-                }))
-                redirectMainPage('/');
-            })
-            .catch((err) => console.log(err));
+      
     };
+
+    // const handleLogin = (values) => {
+    //     const auth = getAuth();
+    //     signInWithEmailAndPassword(auth, values.email, values.password)
+    //         .then(({user}) => {
+    //             dispatch(setUser({
+    //                 email: user.email,
+    //                 id: user.uid,
+    //                 accessToken: user.accessToken,
+    //                 refreshToken: user.stsTokenManager.refreshToken
+    //             }))
+    //             redirectMainPage('/');
+    //         })
+    //         .catch((err) => console.log(err));
+    // };
 
     const onFinishFailed = (errorInfo) => {
 
