@@ -2,8 +2,15 @@ import {Routes, Route} from "react-router-dom";
 import HomePage from "../../pages/HomePage/HomePage.jsx";
 import LoginPage from "../../pages/LoginPage/LoginPage.jsx";
 import RegisterPage from "../../pages/RegisterPage/RegisterPage.jsx";
+import { useEffect } from "react";
+
+const tg = window.Telegram.WebApp;
 
 function App() {
+
+  useEffect(() => {
+    tg.ready();
+  },[])
 
   return (
     <div className="app">
