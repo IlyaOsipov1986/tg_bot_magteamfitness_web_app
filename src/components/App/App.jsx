@@ -3,10 +3,11 @@ import HomePage from "../../pages/HomePage/HomePage.jsx";
 import LoginPage from "../../pages/LoginPage/LoginPage.jsx";
 import RegisterPage from "../../pages/RegisterPage/RegisterPage.jsx";
 import { useEffect } from "react";
-
-const tg = window.Telegram.WebApp;
+import {useTelegram} from "../../utils/hooks/useTelegram.jsx";
 
 function App() {
+
+  const { tg } = useTelegram();
 
   useEffect(() => {
     tg.ready();

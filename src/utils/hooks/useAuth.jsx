@@ -1,6 +1,5 @@
 import {useSelector} from "react-redux";
-import {useEffect, useState} from "react";
-import useLocalstorage from "./useLocalstorage.jsx";
+import useLocalstorage from "./useLocalstorage";
 
 export function useAuth() {
     const {email, accessToken, refreshToken, id} = useSelector(state => state.user);
