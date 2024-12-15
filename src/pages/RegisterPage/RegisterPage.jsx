@@ -1,5 +1,4 @@
 import {useState, useEffect} from "react";
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth"
 import { Button, Form, Input, Space } from 'antd';
 import {Link, useNavigate} from "react-router-dom";
 import {useDispatch} from "react-redux";
@@ -32,19 +31,18 @@ const RegisterPage = () => {
     const [form] = Form.useForm();
 
     const handleRegister = (values) => {
-        const auth = getAuth();
-        createUserWithEmailAndPassword(auth, values.email, values.password, values.phoneNumber)
-            .then(({user}) => {
-                console.log(user)
-                dispatch(setUser({
-                    email: user.email,
-                    id: user.uid,
-                    accessToken: user.accessToken,
-                    refreshToken: user.stsTokenManager.refreshToken
-                }))
-                redirectMainPage('/');
-            })
-            .catch((err) => console.log(err));
+        // createUserWithEmailAndPassword(auth, values.email, values.password, values.phoneNumber)
+        //     .then(({user}) => {
+        //         console.log(user)
+        //         dispatch(setUser({
+        //             email: user.email,
+        //             id: user.uid,
+        //             accessToken: user.accessToken,
+        //             refreshToken: user.stsTokenManager.refreshToken
+        //         }))
+        //         redirectMainPage('/');
+        //     })
+        //     .catch((err) => console.log(err));
     }
 
     return (
