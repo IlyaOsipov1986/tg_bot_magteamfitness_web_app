@@ -1,15 +1,34 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { Button, Form, Input, Space } from 'antd';
-import { Link, useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { setUser } from "../../store/slices/userSlice.js";
 import { useTelegram } from "../../utils/hooks/useTelegram.js";
 
-const SubmitButton = ({ form, children }) => {
+// const SubmitButton = ({ form, children }) => {
     
+//     const [submittable, setSubmittable] = useState(false);
+
+//     // Watch all values
+//     const values = Form.useWatch([], form);
+
+//     useEffect(() => {
+//         form.validateFields({
+//                 validateOnly: true,
+//             })
+//             .then(() => setSubmittable(true))
+//             .catch(() => setSubmittable(false));
+//     }, [form, values]);
+//     return (
+//         <Button type="primary" htmlType="submit" disabled={!submittable}>
+//             {children}
+//         </Button>
+//     );
+// };
+
+const RegisterPage = () => {
+
+    const { user, onCLose, tg } = useTelegram();
+    const [form] = Form.useForm();
     const [submittable, setSubmittable] = useState(false);
 
-    // Watch all values
     const values = Form.useWatch([], form);
 
     useEffect(() => {
@@ -19,25 +38,49 @@ const SubmitButton = ({ form, children }) => {
             .then(() => setSubmittable(true))
             .catch(() => setSubmittable(false));
     }, [form, values]);
-    return (
-        <Button type="primary" htmlType="submit" disabled={!submittable}>
-            {children}
-        </Button>
-    );
-};
-
-const RegisterPage = () => {
-    const dispatch = useDispatch();
-    const redirectMainPage = useNavigate();
-    const { user, onCLose } = useTelegram();
 
     console.log(user)
-    const [form] = Form.useForm();
 
     const handleRegister = (values) => {
         console.log(values)
         onCLose();
     }
+
+    const onSendData = useCallback(() => {
+        const data = {
+            user_id: user.id,
+            last_name: values.lastName,
+            first_name: values.firstName,
+            email: values.email,
+            password: values.password 
+        }
+        tg.sendData(JSON.stringify(data));
+        onCLose();
+    }, [values])
+
+    useEffect(() => {
+        tg.onEvent('mainButtonClicked', onSendData)
+        return () => {
+            tg.offEvent('mainButtonClicked', onSendData)
+        }
+    }, [onSendData])
+
+    useEffect(() => {
+        tg.MainButton.setParams({
+            text: 'Зарегистрироваться'
+        })
+    }, [])
+
+    useEffect(() => {
+        if(!submittable) {
+            tg.MainButton.hide();
+        } else {
+            tg.MainButton.show();
+        }
+    }, [submittable])
+
+    console.log(user?.id)
+    console.log(values)
 
     return (
         <div className="absolute w-full h-full bg-primary-gold">
@@ -96,7 +139,6 @@ const RegisterPage = () => {
 
                     <Form.Item>
                         <Space>
-                            <SubmitButton form={form}>Зарегистрироваться</SubmitButton>
                             <Button htmlType="reset">Очистить данные</Button>
                         </Space>
                     </Form.Item>
