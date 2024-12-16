@@ -3,6 +3,7 @@ import { Button, Form, Input, Space } from 'antd';
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setUser } from "../../store/slices/userSlice.js";
+import { useTelegram } from "../../utils/hooks/useTelegram.js";
 
 const SubmitButton = ({ form, children }) => {
     
@@ -28,21 +29,14 @@ const SubmitButton = ({ form, children }) => {
 const RegisterPage = () => {
     const dispatch = useDispatch();
     const redirectMainPage = useNavigate();
+    const { user, onCLose } = useTelegram();
+
+    console.log(user)
     const [form] = Form.useForm();
 
     const handleRegister = (values) => {
-        // createUserWithEmailAndPassword(auth, values.email, values.password, values.phoneNumber)
-        //     .then(({user}) => {
-        //         console.log(user)
-        //         dispatch(setUser({
-        //             email: user.email,
-        //             id: user.uid,
-        //             accessToken: user.accessToken,
-        //             refreshToken: user.stsTokenManager.refreshToken
-        //         }))
-        //         redirectMainPage('/');
-        //     })
-        //     .catch((err) => console.log(err));
+        console.log(values)
+        onCLose();
     }
 
     return (
@@ -50,18 +44,6 @@ const RegisterPage = () => {
             <div className="login-register-page-wrap">
                 <Form form={form} name="validateOnly" layout="vertical" autoComplete="off" onFinish={handleRegister}>
                    
-                    <Form.Item
-                        name="firstName"
-                        label="Имя"
-                        rules={[
-                            {
-                                required: true,
-                            },
-                        ]}
-                    >
-                        <Input/>
-                    </Form.Item>
-
                     <Form.Item
                         name="lastName"
                         label="Фамилия"
@@ -71,7 +53,19 @@ const RegisterPage = () => {
                             },
                         ]}
                     >
-                        <Input/>
+                        <Input placeholder="Фамилия"/>
+                    </Form.Item>
+
+                    <Form.Item
+                        name="firstName"
+                        label="Имя"
+                        rules={[
+                            {
+                                required: true,
+                            },
+                        ]}
+                    >
+                        <Input placeholder="Имя"/>
                     </Form.Item>
 
                     <Form.Item
@@ -80,10 +74,12 @@ const RegisterPage = () => {
                         rules={[
                             {
                                 required: true,
+                                type: 'email',
+                                message: "Неверный формат email"
                             },
                         ]}
                     >
-                        <Input/>
+                        <Input placeholder="Введите email"/>
                     </Form.Item>
 
                     <Form.Item
@@ -95,7 +91,7 @@ const RegisterPage = () => {
                             },
                         ]}
                     >
-                        <Input/>
+                        <Input placeholder="Введите пароль"/>
                     </Form.Item>
 
                     <Form.Item>
