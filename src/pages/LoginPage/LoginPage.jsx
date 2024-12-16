@@ -1,11 +1,13 @@
 import { Button, Checkbox, Form, Input } from 'antd';
-import {Link, useNavigate} from "react-router-dom";
-import {useDispatch} from "react-redux";
-import {setUser} from "../../store/slices/userSlice.js";
-
-const tg = window.Telegram.WebApp;
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { setUser } from "../../store/slices/userSlice.js";
+import { useTelegram } from "../../utils/hooks/useTelegram.js";
 
 const LoginPage = () => {
+    const {user} = useTelegram();
+
+    console.log(user)
     const dispatch = useDispatch();
     const redirectMainPage = useNavigate();
 
@@ -31,10 +33,6 @@ const LoginPage = () => {
     const onFinishFailed = (errorInfo) => {
 
     };
-
-    const onClose = () => {
-        tg.close();
-    }
 
     return (
         <div className="absolute w-full h-full bg-primary-gold">
@@ -91,7 +89,6 @@ const LoginPage = () => {
                 <div className="text-sm">
                     Еще нет аккаунта? <Link to="/register" style={{color: '#1677ff'}}>Регистрация</Link>
                 </div>
-                <button onClick={onClose}>Закрыть</button>
             </div>
         </div>
     )

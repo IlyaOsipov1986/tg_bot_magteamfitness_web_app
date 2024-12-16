@@ -1,18 +1,18 @@
-import {useState, useEffect} from "react";
+import { useState, useEffect } from "react";
 import { Button, Form, Input, Space } from 'antd';
-import {Link, useNavigate} from "react-router-dom";
-import {useDispatch} from "react-redux";
-import {setUser} from "../../store/slices/userSlice.js";
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { setUser } from "../../store/slices/userSlice.js";
 
 const SubmitButton = ({ form, children }) => {
+    
     const [submittable, setSubmittable] = useState(false);
 
     // Watch all values
     const values = Form.useWatch([], form);
 
     useEffect(() => {
-        form
-            .validateFields({
+        form.validateFields({
                 validateOnly: true,
             })
             .then(() => setSubmittable(true))
@@ -49,9 +49,10 @@ const RegisterPage = () => {
         <div className="absolute w-full h-full bg-primary-gold">
             <div className="login-register-page-wrap">
                 <Form form={form} name="validateOnly" layout="vertical" autoComplete="off" onFinish={handleRegister}>
+                   
                     <Form.Item
-                        name="phoneNumber"
-                        label="Телефон"
+                        name="firstName"
+                        label="Имя"
                         rules={[
                             {
                                 required: true,
@@ -62,8 +63,8 @@ const RegisterPage = () => {
                     </Form.Item>
 
                     <Form.Item
-                        name="secondName"
-                        label="Имя"
+                        name="lastName"
+                        label="Фамилия"
                         rules={[
                             {
                                 required: true,
@@ -104,9 +105,9 @@ const RegisterPage = () => {
                         </Space>
                     </Form.Item>
                 </Form>
-                <div className="text-sm">
+                {/* <div className="text-sm">
                     <Link to="/login" style={{color: '#1677ff'}}>На страницу авторизации</Link>
-                </div>
+                </div> */}
             </div>
         </div>
     )
