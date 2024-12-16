@@ -1,8 +1,8 @@
-import {useState, useEffect} from "react";
+import { useState, useEffect } from "react";
 import { Button, Form, Input, Space } from 'antd';
-import {Link, useNavigate} from "react-router-dom";
-import {useDispatch} from "react-redux";
-import {setUser} from "../../store/slices/userSlice.js";
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { setUser } from "../../store/slices/userSlice.js";
 
 const SubmitButton = ({ form, children }) => {
     
@@ -12,8 +12,7 @@ const SubmitButton = ({ form, children }) => {
     const values = Form.useWatch([], form);
 
     useEffect(() => {
-        form
-            .validateFields({
+        form.validateFields({
                 validateOnly: true,
             })
             .then(() => setSubmittable(true))

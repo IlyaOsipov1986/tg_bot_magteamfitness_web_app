@@ -1,8 +1,8 @@
 import { Button, Checkbox, Form, Input } from 'antd';
-import {Link, useNavigate} from "react-router-dom";
-import {useDispatch} from "react-redux";
-import {setUser} from "../../store/slices/userSlice.js";
-import {useTelegram} from "../../utils/hooks/useTelegram.jsx";
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { setUser } from "../../store/slices/userSlice.js";
+import { useTelegram } from "../../utils/hooks/useTelegram.js";
 
 const LoginPage = () => {
     const {user} = useTelegram();

@@ -1,7 +1,7 @@
-import {Navigate, useNavigate} from 'react-router-dom';
-import {useDispatch} from "react-redux";
-import {useAuth} from "../../utils/hooks/useAuth.jsx";
-import {removeUser} from "../../store/slices/userSlice.js";
+import { Navigate, useNavigate } from 'react-router-dom';
+import { useDispatch } from "react-redux";
+import { useAuth } from "../../utils/hooks/useAuth.js";
+import { removeUser } from "../../store/slices/userSlice.js";
 import { Layout, Flex } from 'antd';
 const { Header, Footer, Sider, Content } = Layout;
 
