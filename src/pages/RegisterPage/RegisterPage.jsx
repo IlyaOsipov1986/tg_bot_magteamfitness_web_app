@@ -42,12 +42,12 @@ const RegisterPage = () => {
     console.log(user)
 
     const handleRegister = () => {
-        
+
     }
 
     const onSendData = useCallback(() => {
         const data = {
-            user_id: user.id,
+            user_id: 21212,
             last_name: values.lastName,
             first_name: values.firstName,
             email: values.email,
@@ -55,14 +55,14 @@ const RegisterPage = () => {
         }
         tg.sendData(JSON.stringify(data));
         onCLose();
-    }, [values?.lastName, values?.firstName, values?.email, values?.password])
+    }, [values])
 
     useEffect(() => {
         tg.onEvent('mainButtonClicked', onSendData)
         return () => {
             tg.offEvent('mainButtonClicked', onSendData)
         }
-    }, [onSendData])
+    }, [submittable])
 
     useEffect(() => {
         tg.MainButton.setParams({
