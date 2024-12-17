@@ -25,7 +25,7 @@ import { useTelegram } from "../../utils/hooks/useTelegram.js";
 
 const RegisterPage = () => {
 
-    const { user, onCLose, tg } = useTelegram();
+    const { onCLose, tg } = useTelegram();
     const [form] = Form.useForm();
     const [submittable, setSubmittable] = useState(false);
 
@@ -39,15 +39,10 @@ const RegisterPage = () => {
             .catch(() => setSubmittable(false));
     }, [form, values]);
 
-    console.log(user)
-
-    const handleRegister = () => {
-
-    }
+    const handleRegister = () => {}
 
     const onSendData = useCallback(() => {
         const data = {
-            user_id: 21212,
             last_name: values.lastName,
             first_name: values.firstName,
             email: values.email,
@@ -77,9 +72,6 @@ const RegisterPage = () => {
             tg.MainButton.show();
         }
     }, [submittable])
-
-    console.log(user?.id)
-    console.log(values)
 
     return (
         <div className="absolute w-full h-full bg-primary-gold">
