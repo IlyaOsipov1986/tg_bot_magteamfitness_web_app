@@ -2,10 +2,12 @@ import { Button, Checkbox, Form, Input } from 'antd';
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setUser } from "../../store/slices/userSlice.js";
+import { useTelegram } from "../../utils/hooks/useTelegram.js";
 
 const LoginPage = () => {
     const dispatch = useDispatch();
     const redirectMainPage = useNavigate();
+    const { queryId } = useTelegram();
 
     const handleLogin = (values) => {
       
@@ -44,12 +46,12 @@ const LoginPage = () => {
                     autoComplete="off"
                 >
                     <Form.Item
-                        label="Email"
-                        name="email"
+                        label="Login"
+                        name="login"
                         rules={[
                             {
                                 required: true,
-                                message: 'Введите email',
+                                message: 'Введите логин',
                             },
                         ]}
                     >
@@ -82,9 +84,9 @@ const LoginPage = () => {
                         </Button>
                     </Form.Item>
                 </Form>
-                <div className="text-sm">
+                {/* <div className="text-sm">
                     Еще нет аккаунта? <Link to="/register" style={{color: '#1677ff'}}>Регистрация</Link>
-                </div>
+                </div> */}
             </div>
         </div>
     )

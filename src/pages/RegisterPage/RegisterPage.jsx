@@ -2,27 +2,6 @@ import { useState, useEffect, useCallback } from "react";
 import { Button, Form, Input, Space } from 'antd';
 import { useTelegram } from "../../utils/hooks/useTelegram.js";
 
-// const SubmitButton = ({ form, children }) => {
-    
-//     const [submittable, setSubmittable] = useState(false);
-
-//     // Watch all values
-//     const values = Form.useWatch([], form);
-
-//     useEffect(() => {
-//         form.validateFields({
-//                 validateOnly: true,
-//             })
-//             .then(() => setSubmittable(true))
-//             .catch(() => setSubmittable(false));
-//     }, [form, values]);
-//     return (
-//         <Button type="primary" htmlType="submit" disabled={!submittable}>
-//             {children}
-//         </Button>
-//     );
-// };
-
 const RegisterPage = () => {
 
     const { onCLose, tg } = useTelegram();
