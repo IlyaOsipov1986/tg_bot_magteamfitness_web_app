@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { useAuth } from "../../utils/hooks/useAuth.js";
 import { removeUser } from "../../store/slices/userSlice.js";
 import { Layout, Flex } from 'antd';
-const { Header, Footer, Sider, Content } = Layout;
+const { Header, Sider, Content } = Layout;
 
 const layoutStyle = {
     borderRadius: 8,
@@ -13,17 +13,19 @@ const layoutStyle = {
 };
 
 const headerStyle = {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
     textAlign: 'center',
     color: '#fff',
     height: 64,
     paddingInline: 48,
     lineHeight: '64px',
-    backgroundColor: '#4096ff',
+    backgroundColor: '#ffffff',
 };
 
 const siderStyle = {
     textAlign: 'center',
-    lineHeight: '120px',
     color: '#fff',
     backgroundColor: '#1677ff',
 };
@@ -36,13 +38,7 @@ const contentStyle = {
     minHeight: 120,
     lineHeight: '120px',
     color: 'black',
-    backgroundColor: '#ffffff',
-};
-
-const footerStyle = {
-    textAlign: 'center',
-    color: '#fff',
-    backgroundColor: '#4096ff',
+    backgroundColor: '#F5F5F5'
 };
 
 const HomePage = () => {
@@ -58,26 +54,27 @@ const HomePage = () => {
         }
     }
 
-    return isAuth.email ? (
+    return isAuth.isAdmin ? (
         <Flex gap="middle" wrap className="h-screen">
             <Layout style={layoutStyle}>
-                <Header style={headerStyle}>Header
-                    <button onClick={logOut}>Выход</button>
-                </Header>
                 <Layout>
                     <Sider width="150px" style={siderStyle}>
-                        Sider
+                        <p className='h-16 text-center content-center'>{isAuth.login}</p>
                     </Sider>
-                    <Content style={contentStyle}>
-                        <div>
-                            1
-                        </div>
-                        <div>
-                            1
-                        </div>
-                    </Content>
+                    <Layout>
+                        <Header style={headerStyle}>
+                            <p className='text-stone-900'>Личный кабинет администратора</p>
+                            <button className='flex justify-center items-center m-3 w-24 rounded border border-solid border-black text-stone-900' onClick={logOut}>
+                                Выход
+                            </button>
+                        </Header>
+                        <Content style={contentStyle}>
+                            <div>
+                            
+                            </div>
+                        </Content>
+                    </Layout>
                 </Layout>
-                <Footer style={footerStyle}>Footer</Footer>
             </Layout>
         </Flex>
     ) : (

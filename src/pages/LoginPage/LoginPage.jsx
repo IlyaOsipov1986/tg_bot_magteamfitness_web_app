@@ -1,8 +1,13 @@
-import { Button, Checkbox, Form, Input } from 'antd';
-import { Link, useNavigate } from "react-router-dom";
+import { Button, Checkbox, Form, Input, notification } from 'antd';
+import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setUser } from "../../store/slices/userSlice.js";
 import { useTelegram } from "../../utils/hooks/useTelegram.js";
+
+const buttonStyle = {
+    width:'100%', 
+    minHeight: '42px'
+};
 
 const LoginPage = () => {
     const dispatch = useDispatch();
@@ -10,26 +15,23 @@ const LoginPage = () => {
     const { queryId } = useTelegram();
 
     const handleLogin = (values) => {
-      
+        if (values.login !== 'admin' && values.password !== 'admin') {
+            onFinishFailed('Неправильный логин или пароль!');
+            return;
+        } 
+
+        dispatch(setUser({
+            login: values.login,
+            id: 1,
+            accessToken: 'accessToken',
+            refreshToken: 'refreshToken',
+            isAdmin: true
+        }))
+        redirectMainPage('/');
     };
 
-    // const handleLogin = (values) => {
-    //     const auth = getAuth();
-    //     signInWithEmailAndPassword(auth, values.email, values.password)
-    //         .then(({user}) => {
-    //             dispatch(setUser({
-    //                 email: user.email,
-    //                 id: user.uid,
-    //                 accessToken: user.accessToken,
-    //                 refreshToken: user.stsTokenManager.refreshToken
-    //             }))
-    //             redirectMainPage('/');
-    //         })
-    //         .catch((err) => console.log(err));
-    // };
-
     const onFinishFailed = (errorInfo) => {
-
+        notification.error({ message: `${errorInfo}` });
     };
 
     return (
@@ -42,7 +44,6 @@ const LoginPage = () => {
                         remember: true,
                     }}
                     onFinish={handleLogin}
-                    onFinishFailed={onFinishFailed}
                     autoComplete="off"
                 >
                     <Form.Item
@@ -79,7 +80,7 @@ const LoginPage = () => {
                     </Form.Item>
 
                     <Form.Item>
-                        <Button type="primary" htmlType="submit" style={{width:'100%', minHeight: '42px'}}>
+                        <Button type="primary" htmlType="submit" style={buttonStyle}>
                             Войти
                         </Button>
                     </Form.Item>

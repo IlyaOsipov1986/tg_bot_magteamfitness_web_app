@@ -4,7 +4,8 @@ const initialState = {
     login: null,
     accessToken: null,
     refreshToken: null,
-    id: null
+    id: null,
+    isAdmin: false
 };
 
 const userSlice = createSlice({
@@ -15,13 +16,15 @@ const userSlice = createSlice({
             state.login = action.payload.login
             state.accessToken = action.payload.accessToken
             state.refreshToken = action.payload.refreshToken
-            state.id = action.payload.id
+            state.id = action.payload.id,
+            state.isAdmin = action.payload.isAdmin
         },
         removeUser(state) {
             state.login = null
             state.accessToken = null
             state.refreshToken = null
             state.id = null
+            state.isAdmin = false
         }
     }
 });

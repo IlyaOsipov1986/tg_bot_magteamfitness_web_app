@@ -101,6 +101,8 @@ const RegisterPage = () => {
                         rules={[
                             {
                                 required: true,
+                                min: 8,
+                                message: "Пароль не должен быть меньше 8 символов"
                             },
                         ]}
                     >
