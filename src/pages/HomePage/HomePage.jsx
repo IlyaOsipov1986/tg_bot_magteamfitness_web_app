@@ -5,6 +5,9 @@ import { removeUser } from "../../store/slices/userSlice.js";
 import { Layout, Flex } from 'antd';
 const { Header, Sider, Content } = Layout;
 import { logOut } from '../../utils/utils.js';
+import { useState } from 'react';
+import UserTable from '../../components/UserTable.jsx';
+import GuideTable from '../../components/GuideTable.jsx';
 
 const layoutStyle = {
     borderRadius: 8,
@@ -48,6 +51,9 @@ const HomePage = () => {
     const dispatch = useDispatch();
     const { isAuth } = useAuth();
     const redirectLoginPage = useNavigate();
+    const [activeItemMenu, setActiveItemMenu] = useState('');
+
+    console.log(activeItemMenu)
 
     return isAuth.isAdmin ? (
         <Flex gap="middle" wrap className="h-screen">
@@ -61,7 +67,7 @@ const HomePage = () => {
                         <div className='flex flex-col'>
                             {menuItems.map((el, i) => {
                                 return (
-                                    <p key={i} className='p-2 cursor-pointer text-left hover:bg-primary-gray hover:text-black'>
+                                    <p onClick={() => setActiveItemMenu(el)} key={i} className='p-2 cursor-pointer text-left hover:bg-primary-gray hover:text-black'>
                                         {el}
                                     </p>
                                 )
@@ -78,9 +84,12 @@ const HomePage = () => {
                             </button>
                         </Header>
                         <Content style={contentStyle}>
-                            <div>
-                            
-                            </div>
+                            {activeItemMenu === 'Список пользователей' && (
+                                <UserTable/>
+                            )}
+                            {activeItemMenu === 'Список гайдов' && (
+                                <GuideTable/>
+                            )}
                         </Content>
                     </Layout>
                 </Layout>

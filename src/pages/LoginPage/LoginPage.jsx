@@ -15,19 +15,19 @@ const LoginPage = () => {
     const { queryId } = useTelegram();
 
     const handleLogin = (values) => {
-        if (values.login !== 'admin' && values.password !== 'admin') {
+        if (values.login === 'admin' && values.password === 'admin') {
+            dispatch(setUser({
+                login: values.login,
+                id: 1,
+                accessToken: 'accessToken',
+                refreshToken: 'refreshToken',
+                isAdmin: true
+            }))
+            redirectMainPage('/');
+        } else {
             onFinishFailed('Неправильный логин или пароль!');
             return;
-        } 
-
-        dispatch(setUser({
-            login: values.login,
-            id: 1,
-            accessToken: 'accessToken',
-            refreshToken: 'refreshToken',
-            isAdmin: true
-        }))
-        redirectMainPage('/');
+        }
     };
 
     const onFinishFailed = (errorInfo) => {
