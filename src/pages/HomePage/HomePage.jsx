@@ -52,9 +52,7 @@ const HomePage = () => {
     const { isAuth } = useAuth();
     const redirectLoginPage = useNavigate();
     const [activeItemMenu, setActiveItemMenu] = useState('');
-
-    console.log(activeItemMenu)
-
+    
     return isAuth.isAdmin ? (
         <Flex gap="middle" wrap className="h-screen">
             <Layout style={layoutStyle}>

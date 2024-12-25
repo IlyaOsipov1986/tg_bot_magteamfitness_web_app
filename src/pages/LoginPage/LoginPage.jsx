@@ -1,8 +1,10 @@
 import { Button, Checkbox, Form, Input, notification } from 'antd';
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setUser } from "../../store/slices/userSlice.js";
 import { useTelegram } from "../../utils/hooks/useTelegram.js";
+import { useAuth } from "../../utils/hooks/useAuth.js";
 
 const buttonStyle = {
     width:'100%', 
@@ -13,22 +15,37 @@ const LoginPage = () => {
     const dispatch = useDispatch();
     const redirectMainPage = useNavigate();
     const { queryId } = useTelegram();
-
+    const { isAuth, setIsAuth } = useAuth();
+  
     const handleLogin = (values) => {
         if (values.login === 'admin' && values.password === 'admin') {
-            dispatch(setUser({
+            // dispatch(setUser({
+            //     login: values.login,
+            //     id: 1,
+            //     accessToken: 'accessToken',
+            //     refreshToken: 'refreshToken',
+            //     isAdmin: true
+            // }))
+            setIsAuth({
                 login: values.login,
                 id: 1,
                 accessToken: 'accessToken',
                 refreshToken: 'refreshToken',
                 isAdmin: true
-            }))
-            redirectMainPage('/');
+            })
+
         } else {
             onFinishFailed('Неправильный логин или пароль!');
             return;
         }
     };
+
+    useEffect(() => {
+        if (isAuth.isAdmin === true) {
+          // Navigate to the dashboard
+          redirectMainPage('/');
+        }
+      }, [isAuth.isAdmin, redirectMainPage]);
 
     const onFinishFailed = (errorInfo) => {
         notification.error({ message: `${errorInfo}` });
