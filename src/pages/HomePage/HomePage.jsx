@@ -42,7 +42,8 @@ const contentStyle = {
     minHeight: 120,
     lineHeight: '120px',
     color: 'black',
-    backgroundColor: '#F5F5F5'
+    backgroundColor: '#F5F5F5',
+    overflow: 'auto'
 };
 
 const menuItems = ['Список пользователей', 'Список гайдов']

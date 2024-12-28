@@ -1,32 +1,49 @@
-import { Button, notification, Space, Table } from "antd";
-import { useEffect, useState } from "react";
+import { Button, notification, Space, Tag, Table } from "antd";
+import useFetchGuides from "../utils/fetchers/useFetchGuides";
+import { formatDate } from "../utils/utils";
 
 const GuideTable = () => {
 
-    const [data, setData] = useState([]);
+  const {
+    dataGuides,
+    loading,
+  } = useFetchGuides();
+  
+  const columns = [
+      {
+        title: 'Дата',
+        dataIndex: 'created',
+        key: 'created',
+        render: (date) => formatDate(date)
+      },
+      {
+        title: 'Название гайда',
+        dataIndex: 'title',
+        key: 'title',
+      },
+      {
+        title: 'Основной гайд',
+        dataIndex: 'mainGuide',
+        key: 'mainGuide',
+        render: (tag) => (
+          <>
+            <Tag color={tag ? "green" : "red"}>{tag ? "+" : "-"}</Tag>
+          </>
+        )
+      }
+    ];
+
+    if (loading) {
+      return <>Загрузка</>
+    }
     
-        const columns = [
-            {
-              title: 'Дата',
-              dataIndex: 'date',
-              key: 'date',
-            },
-            {
-              title: 'Название гайда',
-              dataIndex: 'parameter1',
-              key: 'parameter1',
-            },
-            {
-              title: 'Основной гайд',
-              dataIndex: 'parameter2',
-              key: 'parameter2',
-            }
-          ];
-        
+    console.log(dataGuides)
+
     return (
         <>
         <Table
-            dataSource={data}
+            rowKey={(record) => record.id}
+            dataSource={dataGuides}
             columns={columns}
         />
     </> 

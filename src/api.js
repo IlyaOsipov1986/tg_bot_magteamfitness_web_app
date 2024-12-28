@@ -17,7 +17,7 @@ export const getUsers = async () => {
 
 //Запрос для получения списка гайдов 
 export const getGuides = async () => {
-    return await apiService
+    return await apiService 
       .get('/guides')
       .then((resp) => resp.data);
 };
