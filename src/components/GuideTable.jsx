@@ -1,6 +1,7 @@
-import { Button, notification, Space, Tag, Table } from "antd";
+import { Tag, Table } from "antd";
 import useFetchGuides from "../utils/fetchers/useFetchGuides";
 import { formatDate } from "../utils/utils";
+import Spinner from "../components/Spinner";
 
 const GuideTable = () => {
 
@@ -34,7 +35,7 @@ const GuideTable = () => {
     ];
 
     if (loading) {
-      return <>Загрузка</>
+      return <Spinner/>
     }
     
     console.log(dataGuides)
