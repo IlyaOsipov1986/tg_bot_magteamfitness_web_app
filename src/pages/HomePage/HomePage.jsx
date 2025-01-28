@@ -3,7 +3,11 @@ import { useDispatch } from "react-redux";
 import { useAuth } from "../../utils/hooks/useAuth.js";
 import { removeUser } from "../../store/slices/userSlice.js";
 import { Layout, Flex } from 'antd';
-const { Header, Footer, Sider, Content } = Layout;
+const { Header, Sider, Content } = Layout;
+import { logOut } from '../../utils/utils.js';
+import { useState } from 'react';
+import UserTable from '../../components/UserTable.jsx';
+import GuideTable from '../../components/GuideTable.jsx';
 
 const layoutStyle = {
     borderRadius: 8,
@@ -13,19 +17,21 @@ const layoutStyle = {
 };
 
 const headerStyle = {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
     textAlign: 'center',
     color: '#fff',
     height: 64,
     paddingInline: 48,
     lineHeight: '64px',
-    backgroundColor: '#4096ff',
+    backgroundColor: '#ffffff',
 };
 
 const siderStyle = {
     textAlign: 'center',
-    lineHeight: '120px',
     color: '#fff',
-    backgroundColor: '#1677ff',
+    backgroundColor: '#0F142D',
 };
 
 const contentStyle = {
@@ -36,48 +42,56 @@ const contentStyle = {
     minHeight: 120,
     lineHeight: '120px',
     color: 'black',
-    backgroundColor: '#ffffff',
+    backgroundColor: '#F5F5F5',
+    overflow: 'auto'
 };
 
-const footerStyle = {
-    textAlign: 'center',
-    color: '#fff',
-    backgroundColor: '#4096ff',
-};
+const menuItems = ['Список пользователей', 'Список гайдов']
 
 const HomePage = () => {
     const dispatch = useDispatch();
     const { isAuth } = useAuth();
     const redirectLoginPage = useNavigate();
-
-    function logOut() {
-        if (localStorage.getItem('user')) {
-            localStorage.removeItem('user');
-            dispatch(removeUser());
-            redirectLoginPage('/login', {replace: true });
-        }
-    }
-
-    return isAuth.email ? (
+    const [activeItemMenu, setActiveItemMenu] = useState('');
+    
+    return isAuth.isAdmin ? (
         <Flex gap="middle" wrap className="h-screen">
             <Layout style={layoutStyle}>
-                <Header style={headerStyle}>Header
-                    <button onClick={logOut}>Выход</button>
-                </Header>
                 <Layout>
                     <Sider width="150px" style={siderStyle}>
-                        Sider
+                        <div className='h-14 p-2 flex flex-col justify-center text-left'>
+                            <p>Вы вошли как:</p>
+                            <p className='truncate'>{isAuth.login}</p>
+                        </div>
+                        <div className='flex flex-col'>
+                            {menuItems.map((el, i) => {
+                                return (
+                                    <p onClick={() => setActiveItemMenu(el)} key={i} className='p-2 cursor-pointer text-left hover:bg-primary-gray hover:text-black'>
+                                        {el}
+                                    </p>
+                                )
+                            })}
+                        </div>
                     </Sider>
-                    <Content style={contentStyle}>
-                        <div>
-                            1
-                        </div>
-                        <div>
-                            1
-                        </div>
-                    </Content>
+                    <Layout>
+                        <Header style={headerStyle}>
+                            <p className='text-stone-900'>Личный кабинет администратора</p>
+                            <button className='flex justify-center items-center m-3 w-24 rounded border border-solid border-[#0F142D] text-stone-900 hover:bg-primary-lightBlack hover:text-white' 
+                                onClick={() => logOut(dispatch, removeUser, redirectLoginPage)}
+                            >
+                                Выход
+                            </button>
+                        </Header>
+                        <Content style={contentStyle}>
+                            {activeItemMenu === 'Список пользователей' && (
+                                <UserTable/>
+                            )}
+                            {activeItemMenu === 'Список гайдов' && (
+                                <GuideTable/>
+                            )}
+                        </Content>
+                    </Layout>
                 </Layout>
-                <Footer style={footerStyle}>Footer</Footer>
             </Layout>
         </Flex>
     ) : (

@@ -8,8 +8,10 @@ export default {
     extend: {
       colors: {
           primary: {
-            gold: '#FEEDDB'
-          }
+            gold: '#FEEDDB',
+            gray: '#F5F5F5',
+            lightBlack: '#0F142D'
+          },
         }
       }
     },
