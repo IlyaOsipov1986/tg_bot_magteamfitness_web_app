@@ -1,9 +1,10 @@
 import { Tag, Table } from "antd";
+import { useState } from "react";
 import useFetchGuides from "../utils/fetchers/useFetchGuides";
 import { formatDate } from "../utils/utils";
 import Spinner from "./ui/Spinner";
-import { useState } from "react";
 import AddGuideModal from "./modals/AddGuideModal/AddGuideModal";
+import { addNewGuide } from "../api";
 
 const GuideTable = () => {
 
@@ -38,8 +39,18 @@ const GuideTable = () => {
       }
     ];
 
-    const handleAddGuide = (user) => {
-      console.log(user.guide);
+    const handleAddGuide = (guide) => {
+
+      const currentDate = new Date();
+
+      const dataGuide = {
+        title: guide.guideTitle,
+        contents: 'content_1',
+        mainGuide: guide.mainGuide,
+        created: currentDate
+      }
+      
+      addNewGuide(dataGuide);
     };
 
     return isLoading ? (
