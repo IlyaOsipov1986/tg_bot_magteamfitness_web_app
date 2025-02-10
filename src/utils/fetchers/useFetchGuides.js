@@ -3,7 +3,7 @@ import { getGuides } from "../../api.js";
 
 const useFetchGuides = () => {
     const [dataGuides, setDataGuides] = useState([]);
-    const [loading, setLoading] = useState(true);
+    const [isLoading, setIsLoading] = useState(true);
   
     useEffect(() => {
       const fetchData = async () => {
@@ -12,7 +12,7 @@ const useFetchGuides = () => {
         } catch (error) {
           console.log(error)
         }
-        setLoading(false);
+        setIsLoading(false);
       };
   
       fetchData();
@@ -20,7 +20,7 @@ const useFetchGuides = () => {
   
     return {
       dataGuides,
-      loading,
+      isLoading,
     };
   };
   

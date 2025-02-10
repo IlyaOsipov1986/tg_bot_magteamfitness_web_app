@@ -3,11 +3,11 @@ import { useDispatch } from "react-redux";
 import { useAuth } from "../../utils/hooks/useAuth.js";
 import { removeUser } from "../../store/slices/userSlice.js";
 import { Layout, Flex } from 'antd';
-const { Header, Sider, Content } = Layout;
 import { logOut } from '../../utils/utils.js';
 import { useState } from 'react';
 import UserTable from '../../components/UserTable.jsx';
 import GuideTable from '../../components/GuideTable.jsx';
+const { Header, Sider, Content } = Layout;
 
 const layoutStyle = {
     borderRadius: 8,

@@ -1,13 +1,17 @@
 import { Tag, Table } from "antd";
 import useFetchGuides from "../utils/fetchers/useFetchGuides";
 import { formatDate } from "../utils/utils";
-import Spinner from "../components/Spinner";
+import Spinner from "./ui/Spinner";
+import { useState } from "react";
+import AddGuideModal from "./modals/AddGuideModal/AddGuideModal";
 
 const GuideTable = () => {
 
+  const [isModalVisible, setIsModalVisible] = useState(false);
+
   const {
     dataGuides,
-    loading,
+    isLoading,
   } = useFetchGuides();
   
   const columns = [
@@ -34,20 +38,32 @@ const GuideTable = () => {
       }
     ];
 
-    if (loading) {
-      return <Spinner/>
-    }
-    
-    console.log(dataGuides)
+    const handleAddGuide = (user) => {
+      console.log(user.guide);
+    };
 
-    return (
-        <>
+    return isLoading ? (
+      <div className="block m-auto">
+           <Spinner/>
+      </div>
+    ) : (
+      <>
+        <button className="flex items-center justify-center mb-4 text-sm p-2 w-40 rounded border border-solid border-[#0F142D] text-stone-900 hover:bg-primary-lightBlack hover:text-white"
+          onClick={() => setIsModalVisible(true)}
+        >
+          Добавить гайд
+        </button>
         <Table
-            rowKey={(record) => record.id}
-            dataSource={dataGuides}
-            columns={columns}
+          rowKey={(record) => record.id}
+          dataSource={dataGuides}
+          columns={columns}
         />
-    </> 
+        <AddGuideModal
+          visible={isModalVisible}
+          onCancel={() => setIsModalVisible(false)}
+          onAddGuide={handleAddGuide}
+        />
+      </>
     )
 }
 export default GuideTable;

@@ -45,7 +45,7 @@ const RegisterPage = () => {
     }, [])
 
     useEffect(() => {
-        if(!submittable) {
+        if (!submittable) {
             tg.MainButton.hide();
         } else {
             tg.MainButton.show();
