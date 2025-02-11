@@ -1,6 +1,5 @@
 import axios from "axios";
 import { config } from "./config";
-import { data } from "autoprefixer";
 
 export const apiService = axios.create({
     baseURL: config.api_url,
@@ -26,20 +25,20 @@ export const getGuides = async () => {
 //Запрос на добавление гайда
 export const addNewGuide = async (guide) => {
   return await apiService
-      .post('/guides', JSON.stringify(guide))
-      .then((resp) => resp.data);
+    .post('/guides', JSON.stringify(guide))
+    .then((resp) => resp.data);
 };
 
 //Запрос на удаление гайда
 export const deleteGuide = async (id) => {
   return await apiService
-      .delete(`/guides/:${id}`)
-      .then((resp) => resp.data);
+    .delete(`/guides/:${id}`)
+    .then((resp) => resp.data);
 };
 
-//Запрос на изменение гайда
+//Запрос на обновление гайда
 export const updateGuide = async (id) => {
   return await apiService
-      .put(`/guides/:${id}`)
-      .then((resp) => resp.data);
+    .put(`/guides/:${id}`)
+    .then((resp) => resp.data);
 };

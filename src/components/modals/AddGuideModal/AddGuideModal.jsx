@@ -9,22 +9,18 @@ const AddGuideModal = ({ visible, onCancel, onAddGuide }) => {
     const [form] = Form.useForm();
 
     const handleUpload = ({ file, onSuccess, onError }) => {
-        const isTextFile = file.type === 'text/plain' || 'application/pdf';
+
+        const isTxtFile = file.type === 'text/plain';
+        const isPdfFile = file.type === 'application/pdf';
         const isLt2m = file.size / 1024 / 1024 < 2;
     
         setTimeout(() => {
-            if (!isTextFile) {
-                onError('Ошибка: файл должен быть текстовым документом');
-                notification.error({ message: "Ошибка: файл должен быть текстовым документом" });
-                setTimeout(() => {
-                    setFileList([]) 
-                }, 1000); 
+            if (!isTxtFile & !isPdfFile) {
+                onError('Ошибка: файл должен быть текстовым документом .txt или .pdf');
+                notification.error({ message: "Ошибка: файл должен быть текстовым документом .txt или .pdf" });
             } else if (!isLt2m) {
                 onError('Ошибка: файл должен быть меньше 2MB!');
-                notification.error({ message: "Ошибка: файл должен быть меньше 2MB" });
-                setTimeout(() => {
-                    setFileList([]) 
-                }, 1000);  
+                notification.error({ message: "Ошибка: файл должен быть меньше 2MB" }); 
             } else {
                 onSuccess('ok');
                 notification.success({ message: "Файл успешно загружен!" });
@@ -36,9 +32,8 @@ const AddGuideModal = ({ visible, onCancel, onAddGuide }) => {
         try {
             const values = await form.validateFields();
         
-            const isTextFile = values.document.file.type === 'text/plain' || 'application/pdf';
-
-            console.log(values.document.file.type)
+            const isTxtFile = values.document.file.type === 'text/plain';
+            const isPdfFile = values.document.file.type === 'application/pdf';
 
             if (fileList.length === 0) {
                 notification.error({ message: "Ошибка валидации!" });
@@ -46,9 +41,8 @@ const AddGuideModal = ({ visible, onCancel, onAddGuide }) => {
                 return;
             }
 
-            if (!isTextFile) {
+            if (!isTxtFile & !isPdfFile) {
                 notification.error({ message: "Ошибка валидации!" });
-                form.resetFields();
                 return;
             }
             onAddGuide(values);

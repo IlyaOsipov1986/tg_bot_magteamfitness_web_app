@@ -4,6 +4,7 @@ const guidesSlice = createSlice({
     name: 'guides',
     initialState: {
         guides: [],
+        guideId: ''
     },
     reducers: {
         addGuide(state, action) {
@@ -16,8 +17,9 @@ const guidesSlice = createSlice({
         },
         removeGuide(state, action) {
             state.guides = state.guides.filter(todo => todo.id !== action.payload.id);
-        }
+        },
     }
 })
 
+export const { removeGuide } = guidesSlice.actions;
 export default guidesSlice;

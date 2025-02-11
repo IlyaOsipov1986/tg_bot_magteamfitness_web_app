@@ -7,6 +7,7 @@ import { logOut } from '../../utils/utils.js';
 import { useState } from 'react';
 import UserTable from '../../components/UserTable.jsx';
 import GuideTable from '../../components/GuideTable.jsx';
+import adminMainPageCap from "../../assets/img/adminMainPageCap.svg";
 const { Header, Sider, Content } = Layout;
 
 const layoutStyle = {
@@ -83,6 +84,9 @@ const HomePage = () => {
                             </button>
                         </Header>
                         <Content style={contentStyle}>
+                            {!activeItemMenu && 
+                                <img className='w-[800px]' src={adminMainPageCap} alt=''/>
+                            }
                             {activeItemMenu === 'Список пользователей' && (
                                 <UserTable/>
                             )}
