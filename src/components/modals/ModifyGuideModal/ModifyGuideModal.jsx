@@ -1,38 +1,27 @@
-import { Modal, Form, Input, Button, notification, Switch } from "antd";
+import { Modal, Form, Input, Button } from "antd";
+import { useSelector } from "react-redux";
 import PropTypes from 'prop-types';
 import Spinner from "../../ui/Spinner";
-import { deleteGuide } from "../../../api";
 import { useState } from "react";
 
-const ModifyGuideModal = ({ visible, onCancel, handleUpdateGuide }) => {
+const ModifyGuideModal = ({ visible, onCancel, onDelete, handleUpdateGuide }) => {
 
+    const currentGuide = useSelector((state) => state.guides.guides);
     const [isLoading, setIsLoading] = useState(false);
-
-    const handleDeletGuide = (id) => {
-        setIsLoading(true);
-        deleteGuide(id).then(() => {
-            setTimeout(() => {
-                setIsLoading(false);
-            }, 1000)
-        }).catch(() => {
-            setIsLoading(false);
-            notification.error({ message: "Ошибка удаления гайда!" });
-        })
-    }
 
     return (
         <Modal
             title="Модификатор гайда"
             open={visible}
             onCancel={onCancel}
-            footer={isLoading ? <Spinner/> : [
+            footer={isLoading ? [] : [
                 <Button key="cancel" onClick={onCancel}>
                     Отмена
                 </Button>,
                 <Button key="submit" onClick={handleUpdateGuide}>
                     Сохранить
                 </Button>,
-                <Button key="delete" onClick={handleDeletGuide}>
+                <Button key="delete" onClick={() => onDelete(currentGuide.id, setIsLoading)}>
                     Удалить
                 </Button>
         ]}
@@ -48,15 +37,17 @@ const ModifyGuideModal = ({ visible, onCancel, handleUpdateGuide }) => {
                             }
                         ]}
                 >
-                    <Input placeholder="Введите название"/>
+                    <Input/>
                 </Form.Item>
             </Form>
+                {isLoading && <Spinner/>}
         </Modal>
 )}
 
 ModifyGuideModal.propTypes = {
     visible: PropTypes.bool,
     onCancel: PropTypes.func,
+    onDelete: PropTypes.func,
     handleUpdateGuide: PropTypes.func
 }
 

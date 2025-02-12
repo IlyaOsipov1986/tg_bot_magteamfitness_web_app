@@ -1,25 +1,27 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+const initialState = {
+    guides: {},
+    guidesReq: false
+};
+
 const guidesSlice = createSlice({
-    name: 'guides',
-    initialState: {
-        guides: [],
-        guideId: ''
-    },
+    name: "guides",
+    initialState,
     reducers: {
-        addGuide(state, action) {
-            state.guides.push({
-                title: action.payload.title,
-                contents: action.payload.contents,
-                mainGuide: false,
-                created: new Date().toISOString(),
-            })
+        setGuides(state, action) {
+            const newGuide = action.payload;
+            state.guides = newGuide;
         },
-        removeGuide(state, action) {
-            state.guides = state.guides.filter(todo => todo.id !== action.payload.id);
+        runRequestGuides(state) {
+            state.guidesReq = true;
+        },
+        clearObjGuide(state) {
+            state.guides = {};
+            state.guidesReq = false;
         },
     }
 })
 
-export const { removeGuide } = guidesSlice.actions;
-export default guidesSlice;
+export const { setGuides, clearObjGuide, runRequestGuides } = guidesSlice.actions;
+export default guidesSlice.reducer;

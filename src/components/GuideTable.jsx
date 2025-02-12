@@ -1,23 +1,25 @@
-import { Tag, Table } from "antd";
-import { useSelector } from "react-redux";
+import { Tag, Table, notification } from "antd";
+import { useDispatch } from "react-redux";
 import { useState } from "react";
 import useFetchGuides from "../utils/fetchers/useFetchGuides";
 import { formatDate } from "../utils/utils";
 import Spinner from "./ui/Spinner";
 import AddGuideModal from "./modals/AddGuideModal/AddGuideModal";
 import ModifyGuideModal from "./modals/ModifyGuideModal/ModifyGuideModal";
-import { addNewGuide } from "../api";
+import { setGuides, clearObjGuide } from "../store/slices/guidesSlice.js"; 
+import { addNewGuide, deleteGuide } from "../api";
 
 const GuideTable = () => {
 
-
-
+  const dispatch = useDispatch();
+ 
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [isUpdateModalVisible, setIspdateModalVisible] = useState(false);
 
   const {
     dataGuides,
     isLoading,
+    refetch
   } = useFetchGuides();
   
   const columns = [
@@ -58,13 +60,34 @@ const GuideTable = () => {
         created: currentDate
       }
     
-      addNewGuide(dataGuide);
+      addNewGuide(dataGuide).then(() => {
+        dispatch(clearObjGuide());
+        refetch();
+      }).catch((err) => {
+        notification.error({ message: `Ошибка создания гайда ${err}!` });
+      });
     };
 
-    const handleRowClick = (record) => {
-      // removeGuide(record)
+    const handleRowClick = async (record) => {
+      dispatch(setGuides(record));
       setIspdateModalVisible(true);
     };
+
+    const handleDeletGuide = (id, setIsLoading) => {
+      setIsLoading(true);
+      deleteGuide(id).then(() => {
+          setTimeout(() => {
+            setIsLoading(false);
+            setIspdateModalVisible(false);
+            dispatch(clearObjGuide());
+            refetch();
+            notification.success({ message: "Гайд успешно удален!" });
+          }, 2000)
+      }).catch(() => {
+          setIsLoading(false);
+          notification.error({ message: "Ошибка удаления гайда!" });
+      })
+  }
 
     return isLoading ? (
       <div className="block m-auto">
@@ -94,6 +117,7 @@ const GuideTable = () => {
         <ModifyGuideModal
           visible={isUpdateModalVisible}
           onCancel={() => setIspdateModalVisible(false)}
+          onDelete={handleDeletGuide}
         />
       </>
     )

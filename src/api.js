@@ -32,13 +32,13 @@ export const addNewGuide = async (guide) => {
 //Запрос на удаление гайда
 export const deleteGuide = async (id) => {
   return await apiService
-    .delete(`/guides/:${id}`)
+    .delete(`/guides/${id}`)
     .then((resp) => resp.data);
 };
 
 //Запрос на обновление гайда
 export const updateGuide = async (id) => {
   return await apiService
-    .put(`/guides/:${id}`)
+    .put(`/guides/${id}`)
     .then((resp) => resp.data);
 };

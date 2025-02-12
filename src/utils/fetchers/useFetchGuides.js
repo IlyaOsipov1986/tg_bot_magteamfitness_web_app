@@ -5,23 +5,24 @@ const useFetchGuides = () => {
   
     const [dataGuides, setDataGuides] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
-  
+
+    const fetchData = async () => {
+      try {
+        await getGuides().then((res) => setDataGuides(res));
+      } catch (error) {
+        console.log(error)
+      }
+      setIsLoading(false);
+    };
+
     useEffect(() => {
-      const fetchData = async () => {
-        try {
-          await getGuides().then((res) => setDataGuides(res));
-        } catch (error) {
-          console.log(error)
-        }
-        setIsLoading(false);
-      };
-  
       fetchData();
     }, []);
   
     return {
       dataGuides,
       isLoading,
+      refetch: fetchData
     };
   };
   
