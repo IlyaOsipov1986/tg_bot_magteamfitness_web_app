@@ -2,7 +2,6 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
     guides: {},
-    guidesReq: false
 };
 
 const guidesSlice = createSlice({
@@ -13,9 +12,6 @@ const guidesSlice = createSlice({
             const newGuide = action.payload;
             state.guides = newGuide;
         },
-        runRequestGuides(state) {
-            state.guidesReq = true;
-        },
         clearObjGuide(state) {
             state.guides = {};
             state.guidesReq = false;
@@ -23,5 +19,5 @@ const guidesSlice = createSlice({
     }
 })
 
-export const { setGuides, clearObjGuide, runRequestGuides } = guidesSlice.actions;
+export const { setGuides, clearObjGuide } = guidesSlice.actions;
 export default guidesSlice.reducer;

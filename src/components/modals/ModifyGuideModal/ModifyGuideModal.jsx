@@ -2,13 +2,20 @@ import { Modal, Form, Input, Button } from "antd";
 import { useSelector } from "react-redux";
 import PropTypes from 'prop-types';
 import Spinner from "../../ui/Spinner";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const ModifyGuideModal = ({ visible, onCancel, onDelete, handleUpdateGuide }) => {
 
     const currentGuide = useSelector((state) => state.guides.guides);
     const [isLoading, setIsLoading] = useState(false);
+    const [form] = Form.useForm();
 
+    useEffect(() => {
+        form.setFieldsValue({
+            guideTitle: currentGuide.title,
+        });
+      }, [currentGuide, form]);
+    
     return (
         <Modal
             title="Модификатор гайда"
@@ -26,10 +33,11 @@ const ModifyGuideModal = ({ visible, onCancel, onDelete, handleUpdateGuide }) =>
                 </Button>
         ]}
         >
-            <Form layout="vertical">
+            <Form form={form} layout="vertical">
                 <Form.Item
                     name="guideTitle"
                     label="Изменить название гайда"
+                    onChange={() => {}}
                     rules={[
                             {
                                 required: true,
