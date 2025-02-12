@@ -18,6 +18,7 @@ const ModifyGuideModal = ({ visible, onCancel, onDelete, handleUpdateGuide }) =>
     
     return (
         <Modal
+            forceRender
             title="Модификатор гайда"
             open={visible}
             onCancel={onCancel}
@@ -31,7 +32,7 @@ const ModifyGuideModal = ({ visible, onCancel, onDelete, handleUpdateGuide }) =>
                 <Button key="delete" onClick={() => onDelete(currentGuide.id, setIsLoading)}>
                     Удалить
                 </Button>
-        ]}
+            ]}
         >
             <Form form={form} layout="vertical">
                 <Form.Item
