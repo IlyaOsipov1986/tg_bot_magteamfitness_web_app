@@ -9,5 +9,5 @@ export function logOut(dispatch, removeUser, redirectLoginPage) {
 }
 
 export const formatDate = (value) => {
-    return moment(value).format("YYYY-MM-DD");
+    return moment(value).format("DD-MM-YYYY");
   };

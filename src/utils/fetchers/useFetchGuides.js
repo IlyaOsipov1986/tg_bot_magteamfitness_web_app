@@ -2,25 +2,27 @@ import { useEffect, useState } from "react";
 import { getGuides } from "../../api.js";
 
 const useFetchGuides = () => {
+  
     const [dataGuides, setDataGuides] = useState([]);
-    const [loading, setLoading] = useState(true);
-  
+    const [isLoading, setIsLoading] = useState(true);
+
+    const fetchData = async () => {
+      try {
+        await getGuides().then((res) => setDataGuides(res));
+      } catch (error) {
+        console.log(error)
+      }
+      setIsLoading(false);
+    };
+
     useEffect(() => {
-      const fetchData = async () => {
-        try {
-          await getGuides().then((res) => setDataGuides(res));
-        } catch (error) {
-          console.log(error)
-        }
-        setLoading(false);
-      };
-  
       fetchData();
     }, []);
   
     return {
       dataGuides,
-      loading,
+      isLoading,
+      refetch: fetchData
     };
   };
   

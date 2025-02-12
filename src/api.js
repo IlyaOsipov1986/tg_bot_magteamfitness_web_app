@@ -21,3 +21,24 @@ export const getGuides = async () => {
       .get('/guides')
       .then((resp) => resp.data);
 };
+
+//Запрос на добавление гайда
+export const addNewGuide = async (guide) => {
+  return await apiService
+    .post('/guides', JSON.stringify(guide))
+    .then((resp) => resp.data);
+};
+
+//Запрос на удаление гайда
+export const deleteGuide = async (id) => {
+  return await apiService
+    .delete(`/guides/${id}`)
+    .then((resp) => resp.data);
+};
+
+//Запрос на обновление гайда
+export const updateGuide = async (id) => {
+  return await apiService
+    .put(`/guides/${id}`)
+    .then((resp) => resp.data);
+};
