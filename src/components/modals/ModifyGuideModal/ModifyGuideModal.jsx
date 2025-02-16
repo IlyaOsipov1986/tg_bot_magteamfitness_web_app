@@ -1,24 +1,34 @@
-import { Modal, Form, Input, Button } from "antd";
+import { Modal, Form, Input, Button, Select } from "antd";
 import { useSelector } from "react-redux";
 import PropTypes from 'prop-types';
 import Spinner from "../../ui/Spinner";
+import useFetchUsers from "../../../utils/fetchers/useFetchUsers.js";
 import { useState, useEffect } from "react";
 
 const ModifyGuideModal = ({ visible, onCancel, onDelete, handleUpdateGuide }) => {
 
     const currentGuide = useSelector((state) => state.guides.guides);
-    const listUsers = useSelector((state) => state.user.listUsers);
+    const { dataUsers } = useFetchUsers();
     const [isLoading, setIsLoading] = useState(false);
     const [form] = Form.useForm();
+    const { Option } = Select;
 
-    console.log(listUsers)
+    console.log(dataUsers)
 
     useEffect(() => {
         form.setFieldsValue({
             guideTitle: currentGuide.title,
         });
-      }, [currentGuide, form]);
+    }, [currentGuide, form]);
+
+    function onChange(value) {
+        console.log(`Selected: ${value}`);
+    }
     
+    function onSearch(val) {
+        console.log('Search:', val);
+    }
+
     return (
         <Modal
             forceRender
@@ -53,6 +63,20 @@ const ModifyGuideModal = ({ visible, onCancel, onDelete, handleUpdateGuide }) =>
                 </Form.Item>
             </Form>
                 {isLoading && <Spinner/>}
+            <Select
+                showSearch
+                style={{ width: 200 }}
+                placeholder="Select a fruit"
+                optionFilterProp="first_name"
+                onChange={onChange}
+                onSearch={onSearch}
+                >
+                {dataUsers.map((option) => (
+                    <Option key={option.id} value={option.id}>
+                        {option.last_name} {option.first_name}
+                    </Option>
+                ))}
+            </Select>
         </Modal>
 )}
 
