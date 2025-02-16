@@ -7,8 +7,11 @@ import { useState, useEffect } from "react";
 const ModifyGuideModal = ({ visible, onCancel, onDelete, handleUpdateGuide }) => {
 
     const currentGuide = useSelector((state) => state.guides.guides);
+    const listUsers = useSelector((state) => state.user.listUsers);
     const [isLoading, setIsLoading] = useState(false);
     const [form] = Form.useForm();
+
+    console.log(listUsers)
 
     useEffect(() => {
         form.setFieldsValue({

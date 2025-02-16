@@ -3,7 +3,7 @@ import moment from "moment";
 export function logOut(dispatch, removeUser, redirectLoginPage) {
     if (localStorage.getItem('user')) {
         localStorage.removeItem('user');
-        dispatch(removeUser());
+        dispatch(removeAuthUser());
         redirectLoginPage('/login', {replace: true });
     }
 }

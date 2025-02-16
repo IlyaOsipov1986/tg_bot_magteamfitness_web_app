@@ -15,6 +15,13 @@ export const getUsers = async () => {
       .then((resp) => resp.data);
 };
 
+//Запрос для получения списка пользователей  
+export const putSetGuideSelectedUser = async (id) => {
+  return await apiService
+    .put(`/users/${id}`)
+    .then((resp) => resp.data);
+};
+
 //Запрос для получения списка гайдов 
 export const getGuides = async () => {
     return await apiService 
