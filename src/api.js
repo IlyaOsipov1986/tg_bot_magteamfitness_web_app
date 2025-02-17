@@ -15,10 +15,10 @@ export const getUsers = async () => {
       .then((resp) => resp.data);
 };
 
-//Запрос для получения списка пользователей  
-export const putSetGuideSelectedUser = async (id) => {
+//Запрос для установки гайда для выбранного пользователя
+export const putSetGuideSelectedUser = async (id, dataUser) => {
   return await apiService
-    .put(`/users/${id}`)
+    .put(`/users/${id}`, JSON.stringify(dataUser))
     .then((resp) => resp.data);
 };
 
@@ -44,8 +44,8 @@ export const deleteGuide = async (id) => {
 };
 
 //Запрос на обновление гайда
-export const updateGuide = async (id) => {
+export const updateGuide = async (id, guide) => {
   return await apiService
-    .put(`/guides/${id}`)
+    .put(`/guides/${id}`, JSON.stringify(guide))
     .then((resp) => resp.data);
 };
