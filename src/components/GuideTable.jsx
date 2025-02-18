@@ -87,7 +87,13 @@ const GuideTable = () => {
           setIsLoading(false);
           notification.error({ message: "Ошибка удаления гайда!" });
       })
-  }
+    }
+
+    const handleCancelModal = (handleClearFieldUserSelect) => {
+      handleClearFieldUserSelect();
+      setIspdateModalVisible(false);
+      refetch();
+    }
 
     return isLoading ? (
       <div className="block m-auto">
@@ -116,7 +122,7 @@ const GuideTable = () => {
         />
         <ModifyGuideModal
           visible={isUpdateModalVisible}
-          onCancel={() => setIspdateModalVisible(false)}
+          onCancel={handleCancelModal}
           onDelete={handleDeletGuide}
         />
       </>

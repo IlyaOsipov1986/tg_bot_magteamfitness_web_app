@@ -1,7 +1,7 @@
 import { Navigate, useNavigate } from 'react-router-dom';
 import { useDispatch } from "react-redux";
 import { useAuth } from "../../utils/hooks/useAuth.js";
-import { removeUser } from "../../store/slices/userSlice.js";
+import { removeAuthUser } from "../../store/slices/userSlice.js";
 import { Layout, Flex } from 'antd';
 import { logOut } from '../../utils/utils.js';
 import { useState } from 'react';
@@ -54,7 +54,7 @@ const HomePage = () => {
     const { isAuth } = useAuth();
     const redirectLoginPage = useNavigate();
     const [activeItemMenu, setActiveItemMenu] = useState('');
-    
+   
     return isAuth.isAdmin ? (
         <Flex gap="middle" wrap className="h-screen">
             <Layout style={layoutStyle}>
@@ -78,7 +78,7 @@ const HomePage = () => {
                         <Header style={headerStyle}>
                             <p className='text-stone-900'>Личный кабинет администратора</p>
                             <button className='flex justify-center items-center m-3 w-24 rounded border border-solid border-[#0F142D] text-stone-900 hover:bg-primary-lightBlack hover:text-white' 
-                                onClick={() => logOut(dispatch, removeUser, redirectLoginPage)}
+                                onClick={() => logOut(dispatch, removeAuthUser, redirectLoginPage)}
                             >
                                 Выход
                             </button>

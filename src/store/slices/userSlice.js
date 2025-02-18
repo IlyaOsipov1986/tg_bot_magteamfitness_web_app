@@ -1,33 +1,39 @@
 import {createSlice} from "@reduxjs/toolkit";
 
 const initialState = {
-    login: null,
-    accessToken: null,
-    refreshToken: null,
-    id: null,
-    isAdmin: false
+    authUser: {
+        login: null,
+        accessToken: null,
+        refreshToken: null,
+        id: null,
+        isAdmin: false
+    },
+    listUsers: []
 };
 
 const userSlice = createSlice({
-    name: 'admin',
+    name: 'user',
     initialState,
     reducers: {
-        setUser(state, action) {
-            state.login = action.payload.login
-            state.accessToken = action.payload.accessToken
-            state.refreshToken = action.payload.refreshToken
-            state.id = action.payload.id,
-            state.isAdmin = action.payload.isAdmin
+        setAuthUser(state, action) {
+            state.authUser.login = action.payload.login
+            state.authUser.accessToken = action.payload.accessToken
+            state.authUser.refreshToken = action.payload.refreshToken
+            state.authUser.id = action.payload.id,
+            state.authUser.isAdmin = action.payload.isAdmin
         },
-        removeUser(state) {
-            state.login = null
-            state.accessToken = null
-            state.refreshToken = null
-            state.id = null
-            state.isAdmin = false
+        removeAuthUser(state) {
+            state.authUser.login = null
+            state.authUser.accessToken = null
+            state.authUser.refreshToken = null
+            state.authUser.id = null
+            state.authUser.isAdmin = false
+        },
+        setListUsers(state, action) {
+            state.listUsers = action.payload;
         }
     }
 });
 
-export const {setUser, removeUser} = userSlice.actions;
+export const { setAuthUser, removeAuthUser, setListUsers } = userSlice.actions;
 export default userSlice.reducer;

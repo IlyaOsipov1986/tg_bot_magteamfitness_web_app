@@ -2,7 +2,7 @@ import { Button, Checkbox, Form, Input, notification } from 'antd';
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { setUser } from "../../store/slices/userSlice.js";
+import { setAuthUser } from "../../store/slices/userSlice.js";
 import { useTelegram } from "../../utils/hooks/useTelegram.js";
 import { useAuth } from "../../utils/hooks/useAuth.js";
 
